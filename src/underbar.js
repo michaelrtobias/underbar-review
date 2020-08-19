@@ -102,7 +102,6 @@
     var result = [];
     var seenChars = {};
 
-    console.log(iterator);
     if (iterator) {
 
       //  var iterator = function(value) { return value === 1; };
@@ -115,7 +114,6 @@
           result.push(item);
         }
       });
-      console.log(seenChars);
 
     } else {
       _.each(array, function (item) {
@@ -214,7 +212,6 @@
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    console.log('--------------------------');
 
     var iterator = iterator || _.identity;
     return !!_.reduce(collection, function (accumulator, item) {
@@ -254,11 +251,31 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    var args = Array.from(arguments);
+    for (var i = 0; i < args.length; i++) {
+      var argumentObject = args[i];
+      var objectKeys = Object.keys(argumentObject);
+      for (var j = 0; j < objectKeys.length; j++) {
+        obj[objectKeys[j]] = argumentObject[objectKeys[j]];
+      }
+    }
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    var args = Array.from(arguments);
+    for (var i = 0; i < args.length; i++) {
+      var argumentObject = args[i];
+      var objectKeys = Object.keys(argumentObject);
+      for (var j = 0; j < objectKeys.length; j++) {
+        if (obj[objectKeys[j]] === undefined) {
+          obj[objectKeys[j]] = argumentObject[objectKeys[j]];
+        }
+      }
+    }
+    return obj;
   };
 
 
