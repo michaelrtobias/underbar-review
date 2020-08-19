@@ -255,7 +255,6 @@
     for (var i = 0; i < args.length; i++) {
       var argumentObject = args[i];
       var objectKeys = Object.keys(argumentObject);
-      console.log(objectKeys);
       for (var j = 0; j < objectKeys.length; j++) {
         obj[objectKeys[j]] = argumentObject[objectKeys[j]];
       }
@@ -266,6 +265,17 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    var args = Array.from(arguments);
+    for (var i = 0; i < args.length; i++) {
+      var argumentObject = args[i];
+      var objectKeys = Object.keys(argumentObject);
+      for (var j = 0; j < objectKeys.length; j++) {
+        if (obj[objectKeys[j]] === undefined) {
+          obj[objectKeys[j]] = argumentObject[objectKeys[j]];
+        }
+      }
+    }
+    return obj;
   };
 
 
